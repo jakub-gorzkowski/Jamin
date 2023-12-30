@@ -31,6 +31,10 @@ class DefaultController extends AppController {
     public function notfound() {
         $this -> render('notfound');
     }
+
+    public function add_content() {
+        $this -> render('add_content');
+    }
 }
 
 ?>

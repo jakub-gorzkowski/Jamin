@@ -11,6 +11,6 @@ Routing::get('followed', 'DefaultController');
 Routing::get('search', 'DefaultController');
 Routing::get('settings', 'DefaultController');
 Routing::get('notfound', 'DefaultController');
-
+Routing::post('add_content', 'ContentController');
 Routing::run($path);
 ?>
