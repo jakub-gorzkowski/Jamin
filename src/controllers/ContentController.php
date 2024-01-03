@@ -5,7 +5,7 @@ require_once __DIR__.'/../models/Event.php';
 
 class ContentController extends AppController
 {
-    const MAX_IMAGE_SIZE = 1024 * 1024;
+    const MAX_IMAGE_SIZE = 8 * 1024 * 1024;
     const SUPPORTED_TYPES = ['image/png', 'image/jpeg'];
     const UPLOAD_DIRECTORY = '/../public/uploads/';
 
