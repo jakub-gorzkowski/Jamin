@@ -11,7 +11,7 @@
             <input type="text" placeholder="email address"> <br/>
             <input type="password" name="" id="" placeholder="password"> <br/>
             <input type="password" name="" id="" placeholder="confirm password"> <br/>
-            <input type="button" value="Login">
+            <input type="button" value="Register">
         </form>
     </body>
 </html>

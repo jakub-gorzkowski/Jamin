@@ -8,6 +8,7 @@
     <body>
         <h1>Upload</h1>
         <form action="add_content" method="POST" ENCTYPE="multipart/form-data">
+            <div class="messages">
             <?php
                 if (isset($messages)) {
                    foreach($messages as $message) {
@@ -15,6 +16,7 @@
                    }
                 }
             ?>
+            </div>
             <input name="title" type="text" placeholder="Image title"><br/>
             <textarea name="event-description" rows="3" placeholder="Event description"></textarea><br/>
             <input type="file" name="file"><br/>

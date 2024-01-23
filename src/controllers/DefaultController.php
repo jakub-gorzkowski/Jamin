@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 require_once 'AppController.php';
 
@@ -34,6 +34,21 @@ class DefaultController extends AppController {
 
     public function add_content() {
         $this -> render('add_content');
+    }
+
+    public function event()
+    {
+        $this -> render('event');
+    }
+
+    public function account()
+    {
+        $this -> render('account');
+    }
+
+    public function preferences()
+    {
+        $this -> render('preferences');
     }
 }
 
