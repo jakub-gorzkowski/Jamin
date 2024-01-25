@@ -1,0 +1,14 @@
+.section-header-container {
+    position: relative;
+}
+
+.show-all {
+    position: absolute;
+    top: 5px;
+    right: 40px;
+    cursor: pointer;
+    border: none;
+    background-color: white;
+    text-decoration: underline;
+    font-size: 16px;
+}
