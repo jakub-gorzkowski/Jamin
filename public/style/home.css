@@ -1,0 +1,30 @@
+.promoted-container {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 10px 0;
+}
+
+.promoted-event {
+    display: inline-flex;
+    position: relative;
+    flex-direction: column;
+    white-space: normal;
+    margin: 0 15px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+}
+
+.promoted-event img {
+    width: 45em;
+    border-radius: 20px;
+    object-fit: cover;
+}
+
+.promoted-event-information {
+    position: absolute;
+    color: white;
+    top: 76%;
+    background: rgba(0,0,0, 0.5);
+    padding: 1.14em;
+    border-radius: 0 0 20px 20px;
+}
