@@ -7,11 +7,20 @@
     </head>
     <body>
         <h1>register</h1>
-        <form>
-            <input type="text" placeholder="email address"> <br/>
-            <input type="password" name="" id="" placeholder="password"> <br/>
-            <input type="password" name="" id="" placeholder="confirm password"> <br/>
-            <input type="button" value="Register">
+        <form class="register" action="register" method="POST">
+            <div class="messages">
+                <?php
+                    if (isset($messages)) {
+                        foreach ($messages as $message) {
+                            echo $message;
+                        }
+                    }
+                ?>
+            </div>
+            <input name="email" type="text" placeholder="email address"> <br/>
+            <input name="password" type="password" placeholder="password"> <br/>
+            <input name="confirmed-password" type="password" placeholder="confirm password"> <br/>
+            <button type="submit">Register</button>
         </form>
     </body>
 </html>
