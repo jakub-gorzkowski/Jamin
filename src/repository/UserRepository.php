@@ -22,6 +22,23 @@ class UserRepository extends Repository
         return new User($user['email'], $user['password']);
     }
 
+    public function getUserId(string $email): int
+    {
+        $statement = $this -> database -> connect() -> prepare(
+            'SELECT id FROM public.users WHERE email = :email'
+        );
+        $statement -> bindParam(':email', $email, PDO::PARAM_STR);
+        $statement -> execute();
+
+        $user = $statement -> fetch(PDO::FETCH_ASSOC);
+
+        if ($user == false) {
+            throw new PDOException("No such user");
+        }
+
+        return $user['id'];
+    }
+
     public function addUser(User $user): void
     {
         $statement = $this -> database -> connect() -> prepare(
