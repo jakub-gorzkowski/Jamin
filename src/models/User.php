@@ -1,24 +1,12 @@
 <?php
 
 class User {
-    private $username;
     private $email;
     private $password;
 
-    public function __construct(string $username, string $email, string $password) {
-        $this -> username = $username;
+    public function __construct(string $email, string $password) {
         $this -> email = $email;
         $this -> password = $password;
-    }
-
-    public function setUsername(string $username)
-    {
-        $this->username = $username;
-    }
-
-    public function getUsername(): string
-    {
-        return $this->username;
     }
 
     public function setEmail(string $email) {

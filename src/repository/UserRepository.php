@@ -25,11 +25,10 @@ class UserRepository extends Repository
     public function addUser(User $user): void
     {
         $statement = $this -> database -> connect() -> prepare(
-            'INSERT INTO users (username, email, password) VALUES (?, ?, ?);'
+            'INSERT INTO users (email, password) VALUES (?, ?);'
         );
 
         $statement -> execute([
-            $user -> getUsername(),
             $user -> getEmail(),
             $user -> getPassword()
         ]);

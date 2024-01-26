@@ -16,7 +16,7 @@ class SecurityController extends AppController {
         $email = $_POST['email'];
         $password = $_POST['password'];
 
-        $user = $userRepository -> getUser();
+        $user = $userRepository -> getUser($email);
 
         if (!$user) {
             return $this->render('login', ['messages' => ['User does not exists']]);
