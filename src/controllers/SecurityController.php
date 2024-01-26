@@ -1,6 +1,7 @@
 <?php
 
 require_once 'AppController.php';
+require_once 'SessionController.php';
 require_once __DIR__.'/../models/User.php';
 require_once __DIR__.'/../repository/UserRepository.php';
 
@@ -26,9 +27,11 @@ class SecurityController extends AppController {
             return $this->render('login', ['messages' => ['Invalid email or password']]);
         }
 
+        $session = new SessionController();
+        $session->startSession($user->getEmail());
+
         $url = "http://$_SERVER[HTTP_HOST]";
         header("Location: {$url}/home");
-
     }
 }
 
