@@ -12,6 +12,7 @@ Routing::get('home', 'DefaultController');
 Routing::get('followed', 'DefaultController');
 Routing::get('search', 'DefaultController');
 Routing::get('settings', 'DefaultController');
+Routing::post('logout', 'SessionController');
 
 Routing::post('add_content', 'ContentController');
 

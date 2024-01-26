@@ -19,12 +19,17 @@ class SessionController extends AppController
         return isset($_SESSION['user_email']);
     }
 
-    public function logout()
+    public function endSession()
     {
-        session_unset();
-        session_destroy();
+        if (isset($_SESSION))
+        {
+            session_unset();
+            session_destroy();
+        }
+
         $url = "http://$_SERVER[HTTP_HOST]";
         header("Location: {$url}/login");
         exit();
     }
+
 }

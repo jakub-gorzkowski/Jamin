@@ -19,5 +19,20 @@
                 <div class="nav-button"><a href="settings" class="current-section"><i class="fa-solid fa-gear"></i> Settings</a></div>
             </div>
         </nav>
+
+        <div class="preferences-container">
+
+        </div>
+
+        <div class="settings-container">
+
+        </div>
+
+        <div class="logout-container">
+            <form class="logout" action="logout" method="POST">
+                <button type="submit">Log out</button>
+            </form>
+        </div>
+
     </body>
 </html>
