@@ -19,7 +19,7 @@ class SessionController extends AppController
         return isset($_SESSION['user_email']);
     }
 
-    public function endSession()
+    public function logout()
     {
         if (isset($_SESSION))
         {

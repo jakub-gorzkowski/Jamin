@@ -39,25 +39,35 @@
             <div class="section-header-container">
                 <h2>Recommended for you</h2>
             </div>
+            <?php
+            require_once 'src/repository/EventRepository.php';
+            require_once 'src/repository/UserRepository.php';
+            require_once 'src/models/Event.php';
+            $eventRepository = new EventRepository();
+            $userRepository = new UserRepository();
+            $events = $eventRepository->getEvents($userRepository->getUserId($_SESSION['user_email']), false);
+            ?>
+            <?php foreach($events as $event): ?>
             <div class="recommended-event">
                 <div class="image-container">
-                    <img src="public/uploads/example.jpg" alt="event-image">
+                    <img src="public/uploads/<?= $event->getImage();?>" alt="event-image">
                 </div>
                 <div class="information-container">
                     <div class="event-name">
-                        <h3>Event name</h3>
+                        <h3><?= $event->getName();?></h3>
                     </div>
                     <div class="description">
-                        <article>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</article>
+                        <article><?= $event->getDescription();?></article>
                     </div>
                     <div class="details-container">
-                        <div class="location"><i class="fa-solid fa-location-dot"></i> Location</div>
-                        <div class="category"><i class="fa-solid fa-table-cells"></i> Category</div>
-                        <div class="price-range"><i class="fa-solid fa-money-bill-1-wave"></i> 20-60€</div>
+                        <div class="location"><i class="fa-solid fa-location-dot"></i> <?= $event->getLocationId();?></div>
+                        <div class="category"><i class="fa-solid fa-table-cells"></i> <?= $event->getCategoryId();?></div>
+                        <div class="price-range"><i class="fa-solid fa-money-bill-1-wave"></i> <?= $event->getMinPrice();?>-<?= $event->getMaxPrice();?></div>
                         <button class="follow-button" type="button">Follow</button>
                     </div>
                 </div>
             </div>
+            <?php endforeach;?>
         </div>
     </body>
 </html>

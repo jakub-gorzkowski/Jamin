@@ -4,31 +4,41 @@ require_once 'Repository.php';
 
 class EventRepository extends Repository
 {
-    public function getEvent(int $id): ?Event
+    public function getEvents(int $userId, bool $isPromoted): array
     {
+        $result = [];
         $statement = $this -> database -> connect() -> prepare(
-            'SELECT * FROM public.events WHERE id = :id'
+            'SELECT e.name, e.description,e.date ,e.image, e.min_price, e.max_price, l.name AS location, c.name AS category, e.is_promoted
+                FROM Events e
+                JOIN Locations l ON e.location_id = l.id
+                JOIN Categories c ON e.category_id = c.id
+                JOIN observed_categories oc ON c.id = oc.category_id
+                JOIN observed_locations ol ON l.id = ol.location_id
+                JOIN Users u ON oc.user_id = u.id AND ol.user_id = u.id
+                WHERE u.id = :user_id
+                AND e.is_promoted = :is_promoted;'
         );
-        $statement -> bindParam(':id', $id, PDO::PARAM_INT);
+        $statement -> bindParam(':user_id', $userId, PDO::PARAM_INT);
+        $statement -> bindParam(':is_promoted', $isPromoted, PDO::PARAM_BOOL);
         $statement -> execute();
 
-        $event = $statement -> fetch(PDO::FETCH_ASSOC);
+        $events = $statement -> fetchAll(PDO::FETCH_ASSOC);
 
-        if ($event == false) {
-            return null;
+        foreach ($events as $event) {
+            $result[] = new Event(
+                $event['name'],
+                $event['description'],
+                $event['image'],
+                $event['date'],
+                $event['location'],
+                $event['category'],
+                $event['min_price'],
+                $event['max_price'],
+                $event['is_promoted']
+            );
         }
 
-        return new Event(
-            $event['name'],
-            $event['description'],
-            $event['image'],
-            $event['date'],
-            $event['location'],
-            $event['category'],
-            $event['min_price'],
-            $event['max_price'],
-            $event['is_promoted']
-        );
+        return $result;
     }
 
     public function addEvent(Event $event): void

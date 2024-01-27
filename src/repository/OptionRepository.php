@@ -13,10 +13,10 @@ class OptionRepository extends Repository
         );
         $statement -> execute();
 
-        $locations = $statement -> fetchAll(PDO::FETCH_ASSOC);
+        $options = $statement -> fetchAll(PDO::FETCH_ASSOC);
 
-        foreach ($locations as $location) {
-            $result[] = new Option($location['id'], $location['name']);
+        foreach ($options as $option) {
+            $result[] = new Option($option['id'], $option['name']);
         }
 
         return $result;
