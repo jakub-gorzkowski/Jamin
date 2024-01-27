@@ -8,18 +8,79 @@ class EventRepository extends Repository
     {
         $result = [];
         $statement = $this -> database -> connect() -> prepare(
-            'SELECT e.name, e.description,e.date ,e.image, e.min_price, e.max_price, l.name AS location, c.name AS category, e.is_promoted
-                FROM Events e
+            'SELECT 
+                e.name, 
+                e.description,
+                e.date, 
+                e.image, 
+                e.min_price, 
+                e.max_price, 
+                l.name AS location, 
+                c.name AS category, e.is_promoted
+            FROM Events e
                 JOIN Locations l ON e.location_id = l.id
                 JOIN Categories c ON e.category_id = c.id
                 JOIN observed_categories oc ON c.id = oc.category_id
                 JOIN observed_locations ol ON l.id = ol.location_id
                 JOIN Users u ON oc.user_id = u.id AND ol.user_id = u.id
-                WHERE u.id = :user_id
+            WHERE u.id = :user_id
                 AND e.is_promoted = :is_promoted;'
         );
         $statement -> bindParam(':user_id', $userId, PDO::PARAM_INT);
         $statement -> bindParam(':is_promoted', $isPromoted, PDO::PARAM_BOOL);
+        $statement -> execute();
+
+        $events = $statement -> fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($events as $event) {
+            $result[] = new Event(
+                $event['name'],
+                $event['description'],
+                $event['image'],
+                $event['date'],
+                $event['location'],
+                $event['category'],
+                $event['min_price'],
+                $event['max_price'],
+                $event['is_promoted']
+            );
+        }
+
+        return $result;
+    }
+
+    public function getFollowedEvents(int $userId, string $sign): array
+    {
+        $result = [];
+        $statement = $this -> database -> connect() -> prepare(
+            'SELECT
+                e.id,
+                e.name,
+                e.description,
+                e.image,
+                e.date,
+                e.min_price,
+                e.max_price,
+                e.is_promoted,
+                l.name AS location,
+                c.name AS category
+            FROM
+                Events e
+                JOIN
+                Followed f ON e.id = f.event_id
+                JOIN
+                Users u ON f.user_id = u.id
+                LEFT JOIN
+                Locations l ON e.location_id = l.id
+                LEFT JOIN
+                Categories c ON e.category_id = c.id
+            WHERE
+                u.id = :user_id
+                AND e.date'. $sign .' CURRENT_DATE
+            ORDER BY
+                e.date DESC;'
+        );
+        $statement -> bindParam(':user_id', $userId, PDO::PARAM_INT);
         $statement -> execute();
 
         $events = $statement -> fetchAll(PDO::FETCH_ASSOC);
@@ -62,8 +123,8 @@ class EventRepository extends Repository
             $event -> getDescription(),
             $event -> getImage(),
             $event -> getDate(),
-            $event -> getLocationId(),
-            $event -> getCategoryId(),
+            $event -> getLocation(),
+            $event -> getCategory(),
             $event -> getMinPrice(),
             $event -> getMaxPrice(),
             $event -> IsPromoted() ? 1 : 0

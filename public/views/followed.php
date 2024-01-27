@@ -21,30 +21,40 @@
             </div>
         </nav>
 
-        <div class="section-container"> 
+        <div class="section-container">
             <div class="section-header-container">
                 <h2>Upcoming</h2>
                 <button class="show-all">Show all</button>
             </div>
-            <div class="recommended-event">
-                <div class="image-container">
-                    <img src="public/uploads/example.jpg" alt="event-image">
+            <?php
+            require_once 'src/repository/EventRepository.php';
+            require_once 'src/repository/UserRepository.php';
+            require_once 'src/models/Event.php';
+            $eventRepository = new EventRepository();
+            $userRepository = new UserRepository();
+            $events = $eventRepository->getFollowedEvents($userRepository->getUserId($_SESSION['user_email']), ">=");
+            ?>
+            <?php foreach($events as $event): ?>
+                <div class="recommended-event">
+                    <div class="image-container">
+                        <img src="public/uploads/<?= $event->getImage();?>" alt="event-image">
+                    </div>
+                    <div class="information-container">
+                        <div class="event-name">
+                            <h3><?= $event->getName();?></h3>
+                        </div>
+                        <div class="description">
+                            <article><?= $event->getDescription();?></article>
+                        </div>
+                        <div class="details-container">
+                            <div class="location"><i class="fa-solid fa-location-dot"></i> <?= $event->getLocation();?></div>
+                            <div class="category"><i class="fa-solid fa-table-cells"></i> <?= $event->getCategory();?></div>
+                            <div class="price-range"><i class="fa-solid fa-money-bill-1-wave"></i> <?= $event->getMinPrice();?>-<?= $event->getMaxPrice();?></div>
+                            <button class="follow-button" type="button">Follow</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="information-container">
-                    <div class="event-name">
-                        <h3>Event name</h3>
-                    </div>
-                    <div class="description">
-                        <article>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</article>
-                    </div>
-                    <div class="details-container">
-                        <div class="location"><i class="fa-solid fa-location-dot"></i> Location</div>
-                        <div class="category"><i class="fa-solid fa-table-cells"></i> Category</div>
-                        <div class="price-range"><i class="fa-solid fa-money-bill-1-wave"></i> 20-60€</div>
-                        <button class="follow-button" type="button">Unfollow</button>
-                    </div>
-                </div>
-            </div>
+            <?php endforeach;?>
         </div>
 
         <div class="section-container"> 
@@ -52,25 +62,35 @@
                 <h2>Past events</h2>
                 <button class="show-all">Show all</button>
             </div>
-            <div class="recommended-event">
-                <div class="image-container">
-                    <img src="public/uploads/example.jpg" alt="event-image">
+            <?php
+            require_once 'src/repository/EventRepository.php';
+            require_once 'src/repository/UserRepository.php';
+            require_once 'src/models/Event.php';
+            $eventRepository = new EventRepository();
+            $userRepository = new UserRepository();
+            $events = $eventRepository->getFollowedEvents($userRepository->getUserId($_SESSION['user_email']), "<");
+            ?>
+            <?php foreach($events as $event): ?>
+                <div class="recommended-event">
+                    <div class="image-container">
+                        <img src="public/uploads/<?= $event->getImage();?>" alt="event-image">
+                    </div>
+                    <div class="information-container">
+                        <div class="event-name">
+                            <h3><?= $event->getName();?></h3>
+                        </div>
+                        <div class="description">
+                            <article><?= $event->getDescription();?></article>
+                        </div>
+                        <div class="details-container">
+                            <div class="location"><i class="fa-solid fa-location-dot"></i> <?= $event->getLocation();?></div>
+                            <div class="category"><i class="fa-solid fa-table-cells"></i> <?= $event->getCategory();?></div>
+                            <div class="price-range"><i class="fa-solid fa-money-bill-1-wave"></i> <?= $event->getMinPrice();?>-<?= $event->getMaxPrice();?></div>
+                            <button class="follow-button" type="button">Follow</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="information-container">
-                    <div class="event-name">
-                        <h3>Event name</h3>
-                    </div>
-                    <div class="description">
-                        <article>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</article>
-                    </div>
-                    <div class="details-container">
-                        <div class="location"><i class="fa-solid fa-location-dot"></i> Location</div>
-                        <div class="category"><i class="fa-solid fa-table-cells"></i> Category</div>
-                        <div class="price-range"><i class="fa-solid fa-money-bill-1-wave"></i> 20-60€</div>
-                        <button class="follow-button" type="button">Unfollow</button>
-                    </div>
-                </div>
-            </div>
+            <?php endforeach;?>
         </div>
     </body>
 </html>

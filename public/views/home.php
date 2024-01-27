@@ -60,8 +60,8 @@
                         <article><?= $event->getDescription();?></article>
                     </div>
                     <div class="details-container">
-                        <div class="location"><i class="fa-solid fa-location-dot"></i> <?= $event->getLocationId();?></div>
-                        <div class="category"><i class="fa-solid fa-table-cells"></i> <?= $event->getCategoryId();?></div>
+                        <div class="location"><i class="fa-solid fa-location-dot"></i> <?= $event->getLocation();?></div>
+                        <div class="category"><i class="fa-solid fa-table-cells"></i> <?= $event->getCategory();?></div>
                         <div class="price-range"><i class="fa-solid fa-money-bill-1-wave"></i> <?= $event->getMinPrice();?>-<?= $event->getMaxPrice();?></div>
                         <button class="follow-button" type="button">Follow</button>
                     </div>
