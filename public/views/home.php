@@ -26,27 +26,30 @@
                 <h2>Promoted events</h2>
             </div>
 
-            <div class="promoted-event">
-                <img src="public/uploads/testowe.jpeg" alt="promoted-event-image">
-                <div class="promoted-event-information">
-                    <h3>Event name</h3>
-                    <article>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</article>
-                </div>
-            </div>
-        </div>
-
-        <div class="section-container"> 
-            <div class="section-header-container">
-                <h2>Recommended for you</h2>
-            </div>
             <?php
             require_once 'src/repository/EventRepository.php';
             require_once 'src/repository/UserRepository.php';
             require_once 'src/models/Event.php';
             $eventRepository = new EventRepository();
             $userRepository = new UserRepository();
-            $events = $eventRepository->getEvents($userRepository->getUserId($_SESSION['user_email']), false);
+            $events = $eventRepository->getEvents($userRepository->getUserId($_SESSION['user_email']), true);
             ?>
+            <?php foreach($events as $event): ?>
+            <div class="promoted-event">
+                <img src="public/uploads/<?= $event->getImage();?>" alt="promoted-event-image">
+                <div class="promoted-event-information">
+                    <h3><?= $event->getName();?></h3>
+                    <article><?= $event->getDescription();?></article>
+                </div>
+            </div>
+            <?php endforeach;?>
+        </div>
+
+        <div class="section-container"> 
+            <div class="section-header-container">
+                <h2>Recommended for you</h2>
+            </div>
+            <?php $events = $eventRepository->getEvents($userRepository->getUserId($_SESSION['user_email']), false); ?>
             <?php foreach($events as $event): ?>
             <div class="recommended-event">
                 <div class="image-container">

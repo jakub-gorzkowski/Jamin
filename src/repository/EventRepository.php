@@ -7,30 +7,40 @@ class EventRepository extends Repository
     public function getEvents(int $userId, bool $isPromoted): array
     {
         $result = [];
-        $statement = $this -> database -> connect() -> prepare(
-            'SELECT 
-                e.name, 
-                e.description,
-                e.date, 
-                e.image, 
-                e.min_price, 
-                e.max_price, 
-                l.name AS location, 
-                c.name AS category, e.is_promoted
-            FROM Events e
-                JOIN Locations l ON e.location_id = l.id
-                JOIN Categories c ON e.category_id = c.id
-                JOIN observed_categories oc ON c.id = oc.category_id
-                JOIN observed_locations ol ON l.id = ol.location_id
-                JOIN Users u ON oc.user_id = u.id AND ol.user_id = u.id
-            WHERE u.id = :user_id
-                AND e.is_promoted = :is_promoted;'
-        );
-        $statement -> bindParam(':user_id', $userId, PDO::PARAM_INT);
-        $statement -> bindParam(':is_promoted', $isPromoted, PDO::PARAM_BOOL);
-        $statement -> execute();
+        $query = 'SELECT 
+                    e.name, 
+                    e.description,
+                    e.date, 
+                    e.image, 
+                    e.min_price, 
+                    e.max_price, 
+                    l.name AS location, 
+                    c.name AS category, e.is_promoted
+                FROM Events e
+                    JOIN Locations l ON e.location_id = l.id
+                    JOIN Categories c ON e.category_id = c.id
+                    JOIN observed_categories oc ON c.id = oc.category_id
+                    JOIN observed_locations ol ON l.id = ol.location_id
+                    JOIN Users u ON oc.user_id = u.id AND ol.user_id = u.id
+                WHERE e.is_promoted = :is_promoted';
 
-        $events = $statement -> fetchAll(PDO::FETCH_ASSOC);
+        if (!$isPromoted)
+        {
+            $query .= ' AND u.id = :user_id';
+        }
+
+        $statement = $this->database->connect()->prepare($query);
+
+        $statement->bindParam(':is_promoted', $isPromoted, PDO::PARAM_BOOL);
+
+        if (!$isPromoted)
+        {
+            $statement->bindParam(':user_id', $userId, PDO::PARAM_INT);
+        }
+
+        $statement->execute();
+
+        $events = $statement->fetchAll(PDO::FETCH_ASSOC);
 
         foreach ($events as $event) {
             $result[] = new Event(
