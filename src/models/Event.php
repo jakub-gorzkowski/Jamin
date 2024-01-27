@@ -6,13 +6,21 @@ class Event
     private $description;
     private $image;
     private $date;
+    private $location;
+    private $category;
+    private $minPrice;
+    private $maxPrice;
 
-    public function __construct($title, $description, $image)
+    public function __construct($title, $description, $image, $date, $location, $category, $minPrice, $maxPrice)
     {
         $this->title = $title;
         $this->description = $description;
         $this->image = $image;
-        //$this->date = $date;
+        $this->date = $date;
+        $this->location = $location;
+        $this->category = $category;
+        $this->minPrice = $minPrice;
+        $this->maxPrice = $maxPrice;
     }
 
     public function getDate()
@@ -35,24 +43,24 @@ class Event
         return $this->title;
     }
 
-    public function setDate($date)
+    public function getLocation()
     {
-        $this->date = $date;
+        return $this->location;
     }
 
-    public function setDescription(string $description)
+    public function getCategory()
     {
-        $this->description = $description;
+        return $this->category;
     }
 
-    public function setImage(string $image)
+    public function getMinPrice()
     {
-        $this->image = $image;
+        return $this->minPrice;
     }
 
-    public function setTitle(string $title)
+    public function getMaxPrice()
     {
-        $this->title = $title;
+        return $this->maxPrice;
     }
 }
 ?>
