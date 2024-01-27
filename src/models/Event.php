@@ -2,25 +2,27 @@
 
 class Event
 {
-    private $title;
+    private $name;
     private $description;
     private $image;
     private $date;
-    private $location;
-    private $category;
+    private $locationId;
+    private $categoryId;
     private $minPrice;
     private $maxPrice;
+    private $isPromoted;
 
-    public function __construct($title, $description, $image, $date, $location, $category, $minPrice, $maxPrice)
+    public function __construct($name, $description, $image, $date, $locationId, $categoryId, $minPrice, $maxPrice, $isPromoted)
     {
-        $this->title = $title;
+        $this->name = $name;
         $this->description = $description;
         $this->image = $image;
         $this->date = $date;
-        $this->location = $location;
-        $this->category = $category;
+        $this->locationId = $locationId;
+        $this->categoryId = $categoryId;
         $this->minPrice = $minPrice;
         $this->maxPrice = $maxPrice;
+        $this->isPromoted = $isPromoted;
     }
 
     public function getDate()
@@ -38,19 +40,19 @@ class Event
         return $this->image;
     }
 
-    public function getTitle(): string
+    public function getName(): string
     {
-        return $this->title;
+        return $this->name;
     }
 
-    public function getLocation()
+    public function getLocationId()
     {
-        return $this->location;
+        return $this->locationId;
     }
 
-    public function getCategory()
+    public function getCategoryId()
     {
-        return $this->category;
+        return $this->categoryId;
     }
 
     public function getMinPrice()
@@ -61,6 +63,11 @@ class Event
     public function getMaxPrice()
     {
         return $this->maxPrice;
+    }
+
+    public function IsPromoted(): bool
+    {
+        return $this->isPromoted;
     }
 }
 ?>

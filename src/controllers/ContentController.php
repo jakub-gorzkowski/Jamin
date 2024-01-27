@@ -27,7 +27,17 @@ class ContentController extends AppController
                 dirname(__DIR__).self::UPLOAD_DIRECTORY.$_FILES['file']['name']
             );
 
-            $event = new Event($_POST['title'], $_POST['event-description'], $_FILES['file']['name']);
+            $event = new Event(
+                $_POST['title'],
+                $_POST['event-description'],
+                $_FILES['file']['name'],
+                $_POST['date'],
+                $_POST['location'],
+                $_POST['category'],
+                $_POST['min-price'],
+                $_POST['max-price'],
+                isset($_POST['is-promoted'])
+            );
             $this->eventRepository->addEvent($event);
 
             $this->render('home', ['messages' => $this->messages, 'event' => $event]);

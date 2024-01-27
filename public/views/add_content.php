@@ -42,11 +42,11 @@
                 <?php endforeach; ?>
             </select><br/>
 
-            <input type="number" name="minimal price" placeholder="Min. price"><br/>
-            <input type="number" name="maximal price" placeholder="Max. price"><br/>
+            <input type="number" name="min-price" placeholder="Min. price"><br/>
+            <input type="number" name="max-price" placeholder="Max. price"><br/>
             <input type="date" name="date"><br/>
             <input type="file" name="file"><br/>
-
+            <label><b>Promoted </b><input type="checkbox" name="is-promoted" value="true"><br/></label>
             <button type="submit">Upload</button>
         </form>
     </body>
