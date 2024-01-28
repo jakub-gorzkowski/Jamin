@@ -31,6 +31,9 @@ if($sessionController->checkSession()) {
                     <input name="password" type="password" placeholder="password"> <br/>
                     <button type="submit">Login</button>
                 </form>
+                <form action="register">
+                    <input type="submit" value="Register" />
+                </form>
             </div>
         </div>
     </body>
