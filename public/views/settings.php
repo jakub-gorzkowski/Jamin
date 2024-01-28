@@ -30,7 +30,72 @@ if(!$sessionController->checkSession()) {
         </nav>
 
         <div class="preferences-container">
+            <?php
+            require_once 'src/repository/OptionRepository.php';
+            require_once 'src/repository/UserRepository.php';
+            require_once 'src/models/Option.php';
+            $userRepository = new UserRepository();
+            $optionRepository = new OptionRepository();
+            $options = $optionRepository->getOptions("locations");
+            ?>
+            <div class="messages">
+                <?php
+                if (isset($messages)) {
+                    foreach($messages as $message) {
+                        echo $message;
+                    }
+                }
+                ?>
+            </div>
+            <div>
+                <form action="add_location" method="POST" ENCTYPE="multipart/form-data">
+                    <input type="hidden" value="<?= $userRepository->getUserId($_SESSION['user_email']) ?>" name="user-id">
+                    <select name="location-id">
+                        <?php foreach ($options as $option): ?>
+                            <option value="<?php echo $option->getId(); ?>"><?php echo $option->getName(); ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                    <button type="submit">Add</button>
+                </form>
+            </div>
 
+            <div>
+                <form action="remove_location" method="POST" ENCTYPE="multipart/form-data">
+                    <input type="hidden" value="<?= $userRepository->getUserId($_SESSION['user_email']) ?>" name="user-id">
+                    <select name="location-id">
+                        <?php foreach ($options as $option): ?>
+                            <option value="<?php echo $option->getId(); ?>"><?php echo $option->getName(); ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                    <button type="submit">Remove</button>
+                </form>
+            </div>
+            <div>
+                <form action="add_category" method="POST" ENCTYPE="multipart/form-data">
+                    <?php
+                    $optionRepository = new OptionRepository();
+                    $options = $optionRepository->getOptions("categories");
+                    ?>
+                    <input type="hidden" value="<?= $userRepository->getUserId($_SESSION['user_email']) ?>" name="user-id">
+                    <select name="category-id">
+                        <?php foreach ($options as $option): ?>
+                            <option value="<?php echo $option->getId(); ?>"><?php echo $option->getName(); ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                    <button type="submit">Add</button>
+                </form>
+            </div>
+            <div>
+                <form action="remove_category" method="POST" ENCTYPE="multipart/form-data">
+                    <input type="hidden" value="<?= $userRepository->getUserId($_SESSION['user_email']) ?>" name="user-id">
+                    <select name="category-id">
+                        <?php foreach ($options as $option): ?>
+                            <option value="<?php echo $option->getId(); ?>"><?php echo $option->getName(); ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                    <button type="submit">Remove</button>
+                </form>
+            </div>
         </div>
 
         <div class="settings-container">

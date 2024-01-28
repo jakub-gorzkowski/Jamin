@@ -16,6 +16,10 @@ Routing::get('settings', 'DefaultController');
 Routing::post('logout', 'SessionController');
 Routing::post('follow', 'FollowController');
 Routing::post('unfollow', 'FollowController');
+Routing::post('add_location', 'FollowController');
+Routing::post('remove_location', 'FollowController');
+Routing::post('add_category', 'FollowController');
+Routing::post('remove_category', 'FollowController');
 Routing::post('searchEvent', 'ContentController');
 
 Routing::post('add_content', 'ContentController');

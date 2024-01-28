@@ -4,12 +4,12 @@
 class Followed
 {
     private $userId;
-    private $eventId;
+    private $objectId;
 
-    public function __construct(int $userId, int $eventId)
+    public function __construct(int $userId, int $objectId)
     {
         $this->userId = $userId;
-        $this->eventId = $eventId;
+        $this->objectId = $objectId;
     }
 
     public function getUserId(): int
@@ -17,9 +17,9 @@ class Followed
         return $this->userId;
     }
 
-    public function getEventId(): int
+    public function getObjectId(): int
     {
-        return $this->eventId;
+        return $this->objectId;
     }
 
 }

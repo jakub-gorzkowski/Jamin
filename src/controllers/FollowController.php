@@ -40,4 +40,60 @@ class FollowController extends AppController
             $this->render('followed', ['messages' => '']);
         }
     }
+
+    public function add_location()
+    {
+        if ($this->isPost()) {
+
+            $location = new Followed(
+                $_POST['user-id'],
+                $_POST['location-id']
+            );
+
+            $this->followedRepository->addLocation($location, "observed_locations");
+            $this->render('settings');
+        }
+    }
+
+    public function remove_location()
+    {
+        if ($this->isPost()) {
+
+            $location = new Followed(
+                $_POST['user-id'],
+                $_POST['location-id']
+            );
+
+            $this->followedRepository->removeLocation($location, "observed_locations");
+            $this->render('settings');
+        }
+    }
+
+    public function add_category()
+    {
+        if ($this->isPost()) {
+
+            $location = new Followed(
+                $_POST['user-id'],
+                $_POST['category-id']
+            );
+
+            $this->followedRepository->addCategory($location, "observed_categories");
+            $this->render('settings');
+        }
+    }
+
+    public function remove_category()
+    {
+        if ($this->isPost()) {
+
+            $location = new Followed(
+                $_POST['user-id'],
+                $_POST['category-id']
+            );
+
+            $this->followedRepository->removeCategory($location, "observed_categories");
+            $this->render('settings');
+        }
+    }
 }
