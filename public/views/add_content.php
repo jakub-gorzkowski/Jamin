@@ -8,7 +8,7 @@ if(!$sessionController->checkSession()) {
     exit();
 }
 
-if ($userRepository->getRole($_SESSION['user_email']) != "admin") {
+if ($userRepository->getRole($_SESSION['user_email']) !== "admin") {
     header("Location: /home");
     exit();
 }
