@@ -12,6 +12,7 @@ if(!$sessionController->checkSession()) {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="public/style/global.css">
+        <link rel="stylesheet" href="public/style/settings.css">
         <script src="https://kit.fontawesome.com/2069fca16b.js" crossorigin="anonymous"></script>
         <title>Settings</title>
     </head>
@@ -33,7 +34,23 @@ if(!$sessionController->checkSession()) {
         </div>
 
         <div class="settings-container">
-
+            <div id="change-password-container">
+                <form class="change-password" action="change_password" method="POST" ENCTYPE="multipart/form-data">
+                    <div class="messages">
+                        <?php
+                        if (isset($messages)) {
+                            foreach($messages as $message) {
+                                echo $message;
+                            }
+                        }
+                        ?>
+                    </div>
+                    <input type="password" name="old-password" placeholder="Current password"> <br/>
+                    <input type="password" name="new-password" placeholder="New password"> <br/>
+                    <input type="password" name="new-password-confirmed" placeholder="Confirm new password"> <br/>
+                    <button type="submit">Change password</button>
+                </form>
+            </div>
         </div>
 
         <div class="logout-container">

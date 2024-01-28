@@ -66,6 +66,35 @@ class SecurityController extends AppController
         $url = "http://$_SERVER[HTTP_HOST]";
         header("Location: {$url}/login");
     }
+
+    public function change_password()
+    {
+        $userRepository = new UserRepository();
+
+        if (!$this->isPost()) {
+            return $this->render('settings');
+        }
+
+        $user = $userRepository->getUser($_SESSION['user_email']);
+
+        $oldPassword = $_POST['old-password'];
+        $newPassword = $_POST['new-password'];
+        $newPasswordConfirmed = $_POST['new-password-confirmed'];
+
+        if (!password_verify($oldPassword, $user->getPassword())) {
+            return $this->render('settings', ['messages' => ['Incorrect password']]);
+        }
+
+        if ($newPassword !== $newPasswordConfirmed) {
+            return $this->render('settings', ['messages' => ['Passwords don\'t match']]);
+        }
+
+        $userId = $userRepository->getUserId($_SESSION['user_email']);
+        $userRepository->changePassword($userId, password_hash($newPassword, PASSWORD_DEFAULT));
+
+        $url = "http://$_SERVER[HTTP_HOST]";
+        header("Location: {$url}/settings");
+    }
 }
 
 ?>
