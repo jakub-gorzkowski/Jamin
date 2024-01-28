@@ -1,5 +1,7 @@
 <?php
 require_once 'src/controllers/SessionController.php';
+require_once 'src/repository/UserRepository.php';
+$userRepository = new UserRepository();
 $sessionController = new SessionController();
     if(!$sessionController->checkSession()) {
         header("Location: /login");
@@ -26,6 +28,13 @@ $sessionController = new SessionController();
                 <div class="nav-button"><a href="followed"><i class="fa-solid fa-eye"></i> Followed</a></div>
                 <div class="nav-button"><a href="search"><i class="fa-solid fa-magnifying-glass"></i> Search</a></div>
                 <div class="nav-button"><a href="settings"><i class="fa-solid fa-gear"></i> Settings</a></div>
+                <?php
+                if ($userRepository->getRole($_SESSION['user_email']) === "admin") {
+                ?>
+                    <div class="nav-button"><a href="add_content"><i class="fa-solid fa-plus"></i> Upload</a></div>
+                <?php
+                }
+                ?>
             </div>
         </nav>
 
