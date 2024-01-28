@@ -4,7 +4,7 @@ require_once 'Repository.php';
 
 class EventRepository extends Repository
 {
-    public function getEvents(int $userId, bool $isPromoted): array
+    public function getEvents(int $userId = null, bool $isPromoted = null): array
     {
         $result = [];
         $query = 'SELECT 
@@ -22,21 +22,26 @@ class EventRepository extends Repository
                     JOIN Categories c ON e.category_id = c.id
                     JOIN observed_categories oc ON c.id = oc.category_id
                     JOIN observed_locations ol ON l.id = ol.location_id
-                    JOIN Users u ON oc.user_id = u.id AND ol.user_id = u.id
-                WHERE e.is_promoted = :is_promoted';
+                    JOIN Users u ON oc.user_id = u.id AND ol.user_id = u.id';
 
-        if (!$isPromoted)
+        if($userId != null && $isPromoted != null)
         {
-            $query .= ' AND u.id = :user_id';
+            $query .= ' WHERE e.is_promoted = :is_promoted';
+            if (!$isPromoted)
+                $query .= ' AND u.id = :user_id';
+        }
+        else
+        {
+            $query .= ' WHERE e.is_promoted = false';
         }
 
         $statement = $this->database->connect()->prepare($query);
 
-        $statement->bindParam(':is_promoted', $isPromoted, PDO::PARAM_BOOL);
-
-        if (!$isPromoted)
+        if($userId != null && $isPromoted != null)
         {
-            $statement->bindParam(':user_id', $userId, PDO::PARAM_INT);
+            $statement->bindParam(':is_promoted', $isPromoted, PDO::PARAM_BOOL);
+            if (!$isPromoted)
+                $statement->bindParam(':user_id', $userId, PDO::PARAM_INT);
         }
 
         $statement->execute();
@@ -113,6 +118,23 @@ class EventRepository extends Repository
         }
 
         return $result;
+    }
+
+    public function getEventByName(string $searchString)
+    {
+        $searchString = '%'.strtolower($searchString).'%';
+
+        $statement = $this->database->connect()->prepare(
+            'SELECT events.*, locations.name AS location_name, categories.name AS category_name
+         FROM events
+         INNER JOIN locations ON events.location_id = locations.id
+         INNER JOIN categories ON events.category_id = categories.id
+         WHERE LOWER(events.name) LIKE :search OR LOWER(events.description) LIKE :search;'
+        );
+        $statement -> bindParam(':search', $searchString, PDO::PARAM_STR);
+        $statement -> execute();
+
+        return $statement -> fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function addEvent(Event $event): void

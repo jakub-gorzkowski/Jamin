@@ -10,11 +10,12 @@ Routing::post('login', 'SecurityController');
 
 Routing::get('home', 'DefaultController');
 Routing::get('followed', 'DefaultController');
-Routing::get('search', 'DefaultController');
+Routing::post('search', 'DefaultController');
 Routing::get('settings', 'DefaultController');
 Routing::post('logout', 'SessionController');
 Routing::post('follow', 'FollowController');
 Routing::post('unfollow', 'FollowController');
+Routing::post('searchEvent', 'ContentController');
 
 Routing::post('add_content', 'ContentController');
 
