@@ -13,6 +13,8 @@ Routing::get('followed', 'DefaultController');
 Routing::get('search', 'DefaultController');
 Routing::get('settings', 'DefaultController');
 Routing::post('logout', 'SessionController');
+Routing::post('follow', 'FollowController');
+Routing::post('unfollow', 'FollowController');
 
 Routing::post('add_content', 'ContentController');
 

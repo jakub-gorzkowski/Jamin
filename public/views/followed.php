@@ -50,14 +50,31 @@
                             <div class="location"><i class="fa-solid fa-location-dot"></i> <?= $event->getLocation();?></div>
                             <div class="category"><i class="fa-solid fa-table-cells"></i> <?= $event->getCategory();?></div>
                             <div class="price-range"><i class="fa-solid fa-money-bill-1-wave"></i> <?= $event->getMinPrice();?>-<?= $event->getMaxPrice();?></div>
-                            <button class="follow-button" type="button">Follow</button>
+
+                            <form id="followForm" action="unfollow" method="POST" ENCTYPE="multipart/form-data">
+                            <input type="hidden" name="event-id" value="<?= $event->getId(); ?>">
+                            <input type="hidden" name="user-id" value="<?= $userRepository->getUserId($_SESSION['user_email']); ?>">
+                            <button class="follow-button" type="submit" onclick="changeButtonText(this)">Unfollow</button>
+                            </form>
                         </div>
                     </div>
                 </div>
             <?php endforeach;?>
         </div>
 
-        <div class="section-container"> 
+        <script>
+            function changeButtonText(button) {
+                if (button.innerText === 'Follow') {
+                    button.innerText = 'Unfollow';
+                    document.getElementById('followForm').setAttribute('action', 'follow');
+                } else {
+                    button.innerText = 'Follow';
+                    document.getElementById('followForm').setAttribute('action', 'unfollow');
+                }
+            }
+        </script>
+
+        <div class="section-container">
             <div class="section-header-container">
                 <h2>Past events</h2>
                 <button class="show-all">Show all</button>

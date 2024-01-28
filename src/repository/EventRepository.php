@@ -8,6 +8,7 @@ class EventRepository extends Repository
     {
         $result = [];
         $query = 'SELECT 
+                    e.id,
                     e.name, 
                     e.description,
                     e.date, 
@@ -44,6 +45,7 @@ class EventRepository extends Repository
 
         foreach ($events as $event) {
             $result[] = new Event(
+                $event['id'],
                 $event['name'],
                 $event['description'],
                 $event['image'],
@@ -97,6 +99,7 @@ class EventRepository extends Repository
 
         foreach ($events as $event) {
             $result[] = new Event(
+                $event['id'],
                 $event['name'],
                 $event['description'],
                 $event['image'],

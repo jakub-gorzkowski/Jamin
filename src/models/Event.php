@@ -2,6 +2,7 @@
 
 class Event
 {
+    private $id;
     private $name;
     private $description;
     private $image;
@@ -12,8 +13,9 @@ class Event
     private $maxPrice;
     private $isPromoted;
 
-    public function __construct($name, $description, $image, $date, $location, $category, $minPrice, $maxPrice, $isPromoted)
+    public function __construct($id, $name, $description, $image, $date, $location, $category, $minPrice, $maxPrice, $isPromoted)
     {
+        $this->id = $id;
         $this->name = $name;
         $this->description = $description;
         $this->image = $image;
@@ -23,6 +25,11 @@ class Event
         $this->minPrice = $minPrice;
         $this->maxPrice = $maxPrice;
         $this->isPromoted = $isPromoted;
+    }
+
+    public function getId()
+    {
+        return $this->id;
     }
 
     public function getDate()
