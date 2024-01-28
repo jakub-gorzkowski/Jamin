@@ -39,6 +39,23 @@ class UserRepository extends Repository
         return $user['id'];
     }
 
+    public function getRole(string $email): string
+    {
+        $statement = $this -> database -> connect() -> prepare(
+            'SELECT role FROM public.users WHERE email = :email'
+        );
+        $statement -> bindParam(':email', $email, PDO::PARAM_STR);
+        $statement -> execute();
+
+        $user = $statement -> fetch(PDO::FETCH_ASSOC);
+
+        if ($user == false) {
+            throw new PDOException("No such user");
+        }
+
+        return $user['role'];
+    }
+
     public function addUser(User $user): void
     {
         $statement = $this -> database -> connect() -> prepare(

@@ -1,8 +1,15 @@
 <?php
 require_once 'src/controllers/SessionController.php';
+require_once 'src/repository/UserRepository.php';
 $sessionController = new SessionController();
+$userRepository = new UserRepository();
 if(!$sessionController->checkSession()) {
     header("Location: /login");
+    exit();
+}
+
+if ($userRepository->getRole($_SESSION['user_email']) != "admin") {
+    header("Location: /home");
     exit();
 }
 ?>

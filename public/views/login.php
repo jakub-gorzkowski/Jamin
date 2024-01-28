@@ -1,3 +1,11 @@
+<?php
+require_once 'src/controllers/SessionController.php';
+$sessionController = new SessionController();
+if($sessionController->checkSession()) {
+    header("Location: /home");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html>
     <head>
