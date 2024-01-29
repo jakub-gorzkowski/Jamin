@@ -78,16 +78,6 @@ if(!$sessionController->checkSession()) {
             <?php endforeach;?>
         </div>
 
-        <script>
-            function changeButtonText(button) {
-                if (followForm.getAttribute('action') === 'follow') {
-                    document.getElementById('followForm').setAttribute('action', 'follow');
-                } else {
-                    document.getElementById('followForm').setAttribute('action', 'unfollow');
-                }
-            }
-        </script>
-
         <div class="section-container">
             <div class="section-header-container">
                 <h2>Past events</h2>
@@ -116,11 +106,25 @@ if(!$sessionController->checkSession()) {
                             <div class="location"><i class="fa-solid fa-location-dot"></i>&nbsp;<?= $event->getLocation();?></div>
                             <div class="category"><i class="fa-solid fa-table-cells"></i>&nbsp;<?= $event->getCategory();?></div>
                             <div class="price-range"><i class="fa-solid fa-money-bill-1-wave"></i>&nbsp;<?= $event->getMinPrice();?>-<?= $event->getMaxPrice();?></div>
-                            <button class="follow-button" type="button">Follow</button>
+                            <form id="followForm" action="unfollow" method="POST" ENCTYPE="multipart/form-data">
+                                <input type="hidden" name="event-id" value="<?= $event->getId(); ?>">
+                                <input type="hidden" name="user-id" value="<?= $userRepository->getUserId($_SESSION['user_email']); ?>">
+                                <button class="follow-button" type="submit" onclick="changeButtonText(this)"><i class="fa-solid fa-eye"></i></button>
+                            </form>
                         </div>
                     </div>
                 </div>
             <?php endforeach;?>
         </div>
+
+        <script>
+            function changeButtonText(button) {
+                if (followForm.getAttribute('action') === 'follow') {
+                    document.getElementById('followForm').setAttribute('action', 'follow');
+                } else {
+                    document.getElementById('followForm').setAttribute('action', 'unfollow');
+                }
+            }
+        </script>
     </body>
 </html>
