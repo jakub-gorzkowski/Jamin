@@ -47,6 +47,7 @@ if(!$sessionController->checkSession()) {
             $optionRepository = new OptionRepository();
             $options = $optionRepository->getOptions("locations");
             ?>
+            <h3>Change preferences</h3>
             <div>
                 <form action="add_location" method="POST" ENCTYPE="multipart/form-data">
                     <input type="hidden" value="<?= $userRepository->getUserId($_SESSION['user_email']) ?>" name="user-id">
@@ -101,6 +102,11 @@ if(!$sessionController->checkSession()) {
         <div class="settings-container">
             <div id="change-password-container">
                 <form class="change-password" action="change_password" method="POST" ENCTYPE="multipart/form-data">
+                    <h3>Change password</h3>
+                    <input type="password" name="old-password" placeholder="Current password"> <br/>
+                    <input type="password" name="new-password" placeholder="New password"> <br/>
+                    <input type="password" name="new-password-confirmed" placeholder="Confirm new password"> <br/>
+                    <button type="submit">Change password</button>
                     <div class="messages">
                         <?php
                         if (isset($messages)) {
@@ -110,10 +116,6 @@ if(!$sessionController->checkSession()) {
                         }
                         ?>
                     </div>
-                    <input type="password" name="old-password" placeholder="Current password"> <br/>
-                    <input type="password" name="new-password" placeholder="New password"> <br/>
-                    <input type="password" name="new-password-confirmed" placeholder="Confirm new password"> <br/>
-                    <button type="submit">Change password</button>
                 </form>
             </div>
         </div>
