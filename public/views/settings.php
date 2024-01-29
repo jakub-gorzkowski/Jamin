@@ -122,7 +122,7 @@ if(!$sessionController->checkSession()) {
 
         <div class="logout-container">
             <form class="logout" action="logout" method="POST">
-                <button type="submit">Log out</button>
+                <label><button type="submit">Log out</button></label>
             </form>
         </div>
 

@@ -11,13 +11,30 @@ if($sessionController->checkSession()) {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/public/style/global.css">
+        <link rel="stylesheet" href="/public/style/authentication.css">
+        <script src="https://kit.fontawesome.com/2069fca16b.js" crossorigin="anonymous"></script>
         <title>Login</title>
     </head>
     <body>
+        <nav>
+            <div id="logo-container">
+                <img src="public/images/Jamin.png" alt="Jamin">
+            </div>
+            <div id="nav-button-container">
+                <div class="nav-button"><a href="" class="current-section"><i class="fa-solid fa-house"></i>&nbsp<div>Home</div></a></div>
+                <div class="nav-button"><a href="" class="current-section"><i class="fa-solid fa-eye"></i> &nbsp<div>Followed</div></a></div>
+                <div class="nav-button"><a href="" class="current-section"><i class="fa-solid fa-magnifying-glass"></i> &nbsp<div>Search</div></a></div>
+                <div class="nav-button"><a href="" class="current-section"><i class="fa-solid fa-gear"></i> &nbsp<div>Settings</div></a></div>
+            </div>
+        </nav>
         <div class="container">
-            <div class="login-container">
-                <h1>login</h1>
+            <div class="authentication-container">
+                <h1>Login</h1>
                 <form class="login" action="login" method="POST">
+                    <input name="email" type="text" placeholder="email address"> <br/>
+                    <input name="password" type="password" placeholder="password"> <br/>
+                    <button type="submit">Login</button>
                     <div class="messages">
                         <?php
                             if (isset($messages)) {
@@ -27,13 +44,9 @@ if($sessionController->checkSession()) {
                             }
                         ?>
                     </div>
-                    <input name="email" type="text" placeholder="email address"> <br/>
-                    <input name="password" type="password" placeholder="password"> <br/>
-                    <button type="submit">Login</button>
                 </form>
-                <form action="register">
-                    <input type="submit" value="Register" />
-                </form>
+                <p>or</p>
+                    <a href="register"><button type="submit">Register</button></a>
             </div>
         </div>
     </body>
