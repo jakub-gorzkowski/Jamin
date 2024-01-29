@@ -24,25 +24,24 @@ if(!$sessionController->checkSession()) {
                 <img src="public/images/Jamin.png" alt="Jamin">
             </div>
             <div id="nav-button-container">
-                <div class="nav-button"><a href="home"><i class="fa-solid fa-house"></i> Home</a></div>
-                <div class="nav-button"><a href="followed" class="current-section"><i class="fa-solid fa-eye"></i> Followed</a></div>
-                <div class="nav-button"><a href="search"><i class="fa-solid fa-magnifying-glass"></i> Search</a></div>
-                <div class="nav-button"><a href="settings"><i class="fa-solid fa-gear"></i> Settings</a></div>
+                <div class="nav-button"><a href="home"><i class="fa-solid fa-house"></i>&nbsp<div>Home</div></a></div>
+                <div class="nav-button"><a href="followed" class="current-section"><i class="fa-solid fa-eye"></i> &nbsp<div>Followed</div></a></div>
+                <div class="nav-button"><a href="search"><i class="fa-solid fa-magnifying-glass"></i> &nbsp<div>Search</div></a></div>
+                <div class="nav-button"><a href="settings"><i class="fa-solid fa-gear"></i> &nbsp<div>Settings</div></a></div>
                 <?php
                 if ($userRepository->getRole($_SESSION['user_email']) === "admin") {
-                    ?>
-                    <div class="nav-button"><a href="add_content"><i class="fa-solid fa-plus"></i> Upload</a></div>
-                    <?php
+                ?>
+                    <div class="nav-button"><a href="add_content"><i class="fa-solid fa-plus"></i> <div>Upload</div></a></div>
+                <?php
                 }
                 ?>
             </div>
         </nav>
 
-        <div class="section-container">
-            <div class="section-header-container">
+        <div class="section-header-container" id="upcoming-event-header">
                 <h2>Upcoming</h2>
-                <button class="show-all">Show all</button>
             </div>
+        <div class="section-container" id="upcoming-event-container">
             <?php
             require_once 'src/repository/EventRepository.php';
             require_once 'src/repository/UserRepository.php';
@@ -71,7 +70,7 @@ if(!$sessionController->checkSession()) {
                             <form id="followForm" action="unfollow" method="POST" ENCTYPE="multipart/form-data">
                             <input type="hidden" name="event-id" value="<?= $event->getId(); ?>">
                             <input type="hidden" name="user-id" value="<?= $userRepository->getUserId($_SESSION['user_email']); ?>">
-                            <button class="follow-button" type="submit" onclick="changeButtonText(this)">Unfollow</button>
+                            <button class="follow-button" type="submit" onclick="changeButtonText(this)"><i class="fa-solid fa-eye"></i></button>
                             </form>
                         </div>
                     </div>
@@ -81,11 +80,9 @@ if(!$sessionController->checkSession()) {
 
         <script>
             function changeButtonText(button) {
-                if (button.innerText === 'Follow') {
-                    button.innerText = 'Unfollow';
+                if (followForm.getAttribute('action') === 'follow') {
                     document.getElementById('followForm').setAttribute('action', 'follow');
                 } else {
-                    button.innerText = 'Follow';
                     document.getElementById('followForm').setAttribute('action', 'unfollow');
                 }
             }
@@ -94,7 +91,6 @@ if(!$sessionController->checkSession()) {
         <div class="section-container">
             <div class="section-header-container">
                 <h2>Past events</h2>
-                <button class="show-all">Show all</button>
             </div>
             <?php
             require_once 'src/repository/EventRepository.php';

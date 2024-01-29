@@ -24,25 +24,23 @@ $sessionController = new SessionController();
                 <img src="public/images/Jamin.png" alt="Jamin">
             </div>
             <div id="nav-button-container">
-                <div class="nav-button"><a href="home" class="current-section"><i class="fa-solid fa-house"></i> Home</a></div>
-                <div class="nav-button"><a href="followed"><i class="fa-solid fa-eye"></i> Followed</a></div>
-                <div class="nav-button"><a href="search"><i class="fa-solid fa-magnifying-glass"></i> Search</a></div>
-                <div class="nav-button"><a href="settings"><i class="fa-solid fa-gear"></i> Settings</a></div>
+                <div class="nav-button"><a href="home" class="current-section"><i class="fa-solid fa-house"></i>&nbsp<div>Home</div></a></div>
+                <div class="nav-button"><a href="followed"><i class="fa-solid fa-eye"></i> &nbsp<div>Followed</div></a></div>
+                <div class="nav-button"><a href="search"><i class="fa-solid fa-magnifying-glass"></i> &nbsp<div>Search</div></a></div>
+                <div class="nav-button"><a href="settings"><i class="fa-solid fa-gear"></i> &nbsp<div>Settings</div></a></div>
                 <?php
                 if ($userRepository->getRole($_SESSION['user_email']) === "admin") {
                 ?>
-                    <div class="nav-button"><a href="add_content"><i class="fa-solid fa-plus"></i> Upload</a></div>
+                    <div class="nav-button"><a href="add_content"><i class="fa-solid fa-plus"></i> &nbsp<div>Upload</div></a></div>
                 <?php
                 }
                 ?>
             </div>
         </nav>
-
+        <div class="section-header-container" id="promoted-event-header">
+            <h2>Promoted events</h2>
+        </div>
         <div class="promoted-container">
-            <div class="section-header-container">
-                <h2>Promoted events</h2>
-            </div>
-
             <?php
             require_once 'src/repository/EventRepository.php';
             require_once 'src/repository/UserRepository.php';
@@ -83,11 +81,26 @@ $sessionController = new SessionController();
                         <div class="location"><i class="fa-solid fa-location-dot"></i>&nbsp;<?= $event->getLocation();?></div>
                         <div class="category"><i class="fa-solid fa-table-cells"></i>&nbsp;<?= $event->getCategory();?></div>
                         <div class="price-range"><i class="fa-solid fa-money-bill-1-wave"></i>&nbsp;<?= intval($event->getMinPrice());?>-<?= intval($event->getMaxPrice());?></div>
-                        <button class="follow-button" type="button">Follow</button>
+
+                        <form id="followForm" action="follow" method="POST" ENCTYPE="multipart/form-data">
+                        <input type="hidden" name="event-id" value="<?= $event->getId(); ?>">
+                        <input type="hidden" name="user-id" value="<?= $userRepository->getUserId($_SESSION['user_email']); ?>">
+                        <button class="follow-button" type="submit" onclick="changeButtonText(this)"><i class="fa-solid fa-eye"></i></button>
+                        </form>
                     </div>
                 </div>
             </div>
             <?php endforeach;?>
         </div>
+
+        <script>
+            function changeButtonText(button) {
+                if (followForm.getAttribute('action') === 'follow') {
+                    document.getElementById('followForm').setAttribute('action', 'follow');
+                } else {
+                    document.getElementById('followForm').setAttribute('action', 'unfollow');
+                }
+            }
+        </script>
     </body>
 </html>

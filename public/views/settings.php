@@ -24,14 +24,14 @@ if(!$sessionController->checkSession()) {
                 <img src="public/images/Jamin.png" alt="Jamin">
             </div>
             <div id="nav-button-container">
-                <div class="nav-button"><a href="home"><i class="fa-solid fa-house"></i> Home</a></div>
-                <div class="nav-button"><a href="followed"><i class="fa-solid fa-eye"></i> Followed</a></div>
-                <div class="nav-button"><a href="search"><i class="fa-solid fa-magnifying-glass"></i> Search</a></div>
-                <div class="nav-button"><a href="settings" class="current-section"><i class="fa-solid fa-gear"></i> Settings</a></div>
+                <div class="nav-button"><a href="home"><i class="fa-solid fa-house"></i> &nbsp<div>Home</div></a></div>
+                <div class="nav-button"><a href="followed"><i class="fa-solid fa-eye"></i> &nbsp<div>Followed</div></a></div>
+                <div class="nav-button"><a href="search"><i class="fa-solid fa-magnifying-glass"></i> &nbsp<div>Search</div></a></div>
+                <div class="nav-button"><a href="settings" class="current-section"><i class="fa-solid fa-gear"></i> &nbsp<div>Settings</div></a></div>
                 <?php
                 if ($userRepository->getRole($_SESSION['user_email']) === "admin") {
                     ?>
-                    <div class="nav-button"><a href="add_content"><i class="fa-solid fa-plus"></i> Upload</a></div>
+                    <div class="nav-button"><a href="add_content"><i class="fa-solid fa-plus"></i> &nbsp<div>Upload</div></a></div>
                     <?php
                 }
                 ?>
@@ -47,15 +47,6 @@ if(!$sessionController->checkSession()) {
             $optionRepository = new OptionRepository();
             $options = $optionRepository->getOptions("locations");
             ?>
-            <div class="messages">
-                <?php
-                if (isset($messages)) {
-                    foreach($messages as $message) {
-                        echo $message;
-                    }
-                }
-                ?>
-            </div>
             <div>
                 <form action="add_location" method="POST" ENCTYPE="multipart/form-data">
                     <input type="hidden" value="<?= $userRepository->getUserId($_SESSION['user_email']) ?>" name="user-id">

@@ -28,6 +28,7 @@ class ContentController extends AppController
             );
 
             $event = new Event(
+                0,
                 $_POST['title'],
                 $_POST['event-description'],
                 $_FILES['file']['name'],

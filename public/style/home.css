@@ -28,3 +28,39 @@
     padding: 1.14em;
     border-radius: 0 0 20px 20px;
 }
+
+@media only screen and (max-width: 1200px) {
+
+    #promoted-event-header {
+        margin-top: 6em;
+        margin-bottom: -3em;
+    }
+
+    .promoted-event-information {
+        top: 72%;
+    }
+
+    .promoted-container {
+        margin-top: 4em;
+    }
+
+    .promoted-event img {
+        width: 35em;
+    }
+
+    #nav-button-container {
+        margin-right: 100em;
+    }
+
+}
+
+@media only screen and (max-width: 1000px) {
+
+    .promoted-event img {
+        width: 30em;
+    }
+
+    .promoted-event-information {
+        top: 67%;
+    }
+}

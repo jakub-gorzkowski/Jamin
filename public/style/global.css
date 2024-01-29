@@ -16,6 +16,7 @@ nav {
     background-color: #ffffff;
     padding: 25px;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    z-index: 2;
 }
 
 #nav-button-container {
@@ -31,6 +32,8 @@ nav {
 }
 
 .nav-button a {
+    display: flex;
+    float: left;
     text-decoration: none;
     color: #000;
     font-size: 18px;
@@ -104,9 +107,11 @@ nav {
 .follow-button {
     position: absolute;
     right: 10px;
-    bottom: 0;
-    width: 100px;
+    bottom: -5px;
+    width: 23px;
     height: 23px;
+
+    z-index: 1;
 
     display: inline-block;
     border-radius: 7px;
@@ -116,4 +121,76 @@ nav {
     font-size: 14px;
     cursor: pointer;
     border: none;
+}
+
+.section-container {
+    margin-bottom: 100px;
+}
+
+@media only screen and (max-width: 1200px) {
+
+    #nav-button-container {
+        position: fixed;
+    }
+
+    .recommended-event {
+        width: 450px;
+        margin-top: 1em;
+    }
+
+    nav {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+    }
+
+    .nav-button div {
+        display: none;
+    }
+
+    .nav-button {
+        margin: 0 40px;
+    }
+
+    #logo-container {
+        position: fixed;
+        width: 5%;
+        padding: 0;
+        top: 1em;
+        right: 6em;
+    }
+    
+    #logo-container img {
+        width: 100%;
+        min-width: 120px;
+    }
+
+    .details-container div {
+        font-size: 12px;
+    }
+
+    h2 {
+        width: 340px;
+        margin: 0 -1em;
+    }
+
+    article {
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+
+    h2 {
+        margin: 0 -4em;
+    }
+
+}
+
+@media only screen and (max-width: 800px) {
+
+    h2 {
+        margin: 0 -5em;
+    }
+
 }

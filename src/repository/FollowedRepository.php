@@ -10,10 +10,16 @@ class FollowedRepository extends Repository
             'INSERT INTO followed (user_id, event_id) VALUES (?, ?);'
         );
 
+        try {
         $statement -> execute([
             $followed -> getUserId(),
             $followed -> getObjectId()
         ]);
+        }  catch (PDOException $e) {
+            $url = "http://$_SERVER[HTTP_HOST]";
+            header("Location: {$url}/followed");
+            exit();
+        }
     }
 
     public function unfollowEvent(Followed $followed): void
@@ -21,11 +27,16 @@ class FollowedRepository extends Repository
         $statement = $this -> database -> connect() -> prepare(
             'DELETE FROM followed WHERE user_id = ? AND event_id = ?;'
         );
-
+        try {
         $statement -> execute([
             $followed -> getUserId(),
             $followed -> getObjectId()
         ]);
+        }  catch (PDOException $e) {
+        $url = "http://$_SERVER[HTTP_HOST]";
+        header("Location: {$url}/followed");
+        exit();
+    }
     }
 
     public function addLocation(Followed $preference, string $type): void
